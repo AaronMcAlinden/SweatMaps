@@ -24,9 +24,9 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import { VisitorSummarySection } from "@/components/venue/visitor-summary-section";
 import { cn } from "@/lib/utils";
 import type { Venue } from "@/types/venue";
-import type { VisitorSummaryPayload } from "@/types/visitor-summary";
 
 function formatGbp(n: number) {
   return new Intl.NumberFormat(undefined, {
@@ -98,13 +98,7 @@ function amenityIcon(label: string): LucideIcon {
 
 const BAR_HEIGHTS = [40, 55, 35, 70, 45, 90, 50, 65, 38, 72, 48, 80];
 
-export function VenueDetailView({
-  venue,
-  visitorSummary,
-}: {
-  venue: Venue;
-  visitorSummary: VisitorSummaryPayload | null;
-}) {
+export function VenueDetailView({ venue }: { venue: Venue }) {
   const photos = venue.photo_urls?.filter(Boolean) ?? [];
   const hero = photos[0] ?? null;
   const gallery = photos;
@@ -334,58 +328,7 @@ export function VenueDetailView({
           </p>
         </section>
 
-        <section
-          aria-labelledby="visitor-summary"
-          className="rounded-2xl border border-border bg-card p-4 shadow-sm"
-        >
-          <div className="flex items-center gap-2.5">
-            <span
-              className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10"
-              aria-hidden
-            >
-              <Sparkles className="size-4 text-primary" strokeWidth={2} />
-            </span>
-            <h2
-              id="visitor-summary"
-              className="font-serif text-lg font-semibold text-foreground"
-            >
-              What visitors say
-            </h2>
-          </div>
-          {visitorSummary ? (
-            <div className="mt-4 space-y-4">
-              <p className="font-sans text-sm italic leading-relaxed text-muted-foreground">
-                {visitorSummary.summary}
-              </p>
-              <div className="grid grid-cols-2 gap-4 border-t border-border/70 pt-4">
-                <div>
-                  <h3 className="font-sans text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-foreground">
-                    Visitors love
-                  </h3>
-                  <ul className="mt-2 list-disc space-y-1.5 pl-4 font-sans text-[0.8125rem] leading-snug text-emerald-800">
-                    {visitorSummary.pros.map((p, i) => (
-                      <li key={`pro-${i}`}>{p}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-sans text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-foreground">
-                    Worth knowing
-                  </h3>
-                  <ul className="mt-2 list-disc space-y-1.5 pl-4 font-sans text-[0.8125rem] leading-snug text-rose-900/85">
-                    {visitorSummary.cons.map((c, i) => (
-                      <li key={`con-${i}`}>{c}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground">
-              Reviews coming soon for this venue.
-            </p>
-          )}
-        </section>
+        <VisitorSummarySection slug={venue.slug} />
 
         {venue.amenities?.length ? (
           <section aria-labelledby="amenities" className="space-y-3">

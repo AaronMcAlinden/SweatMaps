@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 
 import { VenueDetailView } from "@/components/venue/venue-detail-view";
 import { createSupabaseClient } from "@/lib/supabase";
-import { buildVisitorSummary } from "@/lib/visitor-summary";
 import type { Venue } from "@/types/venue";
 
 export const dynamic = "force-dynamic";
@@ -50,10 +49,6 @@ export default async function VenuePage({ params }: Props) {
         "is_claimed",
         "has_hot",
         "has_cold",
-        "ai_summary",
-        "ai_pros",
-        "ai_cons",
-        "ai_summary_generated_at",
         "created_at",
         "updated_at",
       ].join(", "),
@@ -66,9 +61,6 @@ export default async function VenuePage({ params }: Props) {
   }
 
   const venue = data as unknown as Venue;
-  const visitorSummary = await buildVisitorSummary(venue);
 
-  return (
-    <VenueDetailView venue={venue} visitorSummary={visitorSummary} />
-  );
+  return <VenueDetailView venue={venue} />;
 }
