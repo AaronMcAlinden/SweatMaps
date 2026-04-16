@@ -1,0 +1,36 @@
+export interface Venue {
+  id: string;
+  name: string;
+  slug: string;
+  types: string[];
+  address: string | null;
+  city: string | null;
+  country: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  description: string | null;
+  price_from: number | null;
+  session_length: string | null;
+  max_capacity: number | null;
+  temperature: string | null;
+  amenities: string[];
+  phone: string | null;
+  website: string | null;
+  instagram: string | null;
+  google_place_id: string | null;
+  google_rating: number | null;
+  google_review_count: number | null;
+  photo_urls: string[];
+  opening_hours: unknown | null;
+  is_verified: boolean | null;
+  is_featured: boolean | null;
+  is_claimed: boolean | null;
+  has_hot: boolean | null;
+  has_cold: boolean | null;
+  ai_summary: string | null;
+  ai_pros: string[] | null;
+  ai_cons: string[] | null;
+  ai_summary_generated_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
